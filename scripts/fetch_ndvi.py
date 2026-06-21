@@ -128,30 +128,30 @@ def main():
     doy = week_start.timetuple().tm_yday
 
     row = {
-        "牧场编号": PASTURE_ID,
-        "开始周": str(week_start),
-        "周末": str(week_end),
-        "年": iso_year,
-        "一年中的第几周": iso_week,
-        "多伊": doy,
+        "pasture_id": PASTURE_ID,
+        "week_start": str(week_start),
+        "week_end": str(week_end),
+        "year": iso_year,
+        "week_of_year": iso_week,
+        "doy": doy,
         "ndvi_mean": stats["ndvi_mean"],
         "ndvi_std": stats["ndvi_std"],
-        "像素计数": stats["pixel_count"],
-        "图片数量": stats["image_count"],
+        "pixel_count": stats["pixel_count"],
+        "image_count": stats["image_count"],
     }
 
     existing = (
         sb.table(TABLE_NAME)
-        .select("ID")
-        .eq("牧场编号", PASTURE_ID)
-        .eq("开始周", str(week_start))
+        .select("id")
+        .eq("pasture_id", PASTURE_ID)
+        .eq("week_start", str(week_start))
         .execute()
     )
 
     if existing.data:
-        row_id = existing.data[0]["ID"]
-        sb.table(TABLE_NAME).update(row).eq("ID", row_id).execute()
-        print(f"\n✅ 已更新 ID={row_id}")
+        row_id = existing.data[0]["id"]
+        sb.table(TABLE_NAME).update(row).eq("id", row_id).execute()
+        print(f"\n✅ 已更新 id={row_id}")
     else:
         sb.table(TABLE_NAME).insert(row).execute()
         print(f"\n✅ 已新增一行")

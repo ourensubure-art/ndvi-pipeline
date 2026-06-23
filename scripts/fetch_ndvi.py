@@ -11,7 +11,7 @@ import ee
 from supabase import create_client
 
 # ============ 配置 ============
-PASTURE_ID = "牧场_001"
+PASTURE_ID = "pasture_001"
 PASTURE_COORDS = [
     [107.8685, 39.1126],
     [107.8987, 39.1126],
